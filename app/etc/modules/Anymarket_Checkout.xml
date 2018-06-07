@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Anymarket_Checkout>
+			<active>true</active>
+			<codePool>community</codePool>
+			<depends>
+				<Mage_Checkout />
+			</depends>
+		</Anymarket_Checkout>
+	</modules>
+</config>

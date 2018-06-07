@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<config>
+    <tabs>
+        <anymarket_new_tab module="catalog" translate="label">
+            <label>AnyMarket</label>
+            <sort_order>100</sort_order>
+        </anymarket_new_tab>
+    </tabs>
+    <sections>
+        <anymarket_new_section module="catalog" translate="label">
+            <label>Configurações</label>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>anymarket_new_tab</tab>
+            <groups>
+                <anymarket_new_access_group translate="label comment" module="catalog">
+                    <label>Access</label>
+                    <comment>
+                        <![CDATA[
+                            <div>
+                                <b>Configure aqui todas as informações necessarias para a comunicação com o Anymarket.</b>
+                                <br>
+                                Todas essas informações são fornecidas pelo Suporte Anymarket.
+                                <br>
+                                <br>
+                                Entre em contato conosco:
+                                <br>
+                                Telefone: (44) 3033-6333
+                                <br>
+                                E-mail: anymarketsup@db1.com.br
+                                <hr>
+                                <br>
+                            </div>
+                        ]]>
+                    </comment>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <anymarket_new_header_access_field>
+                            <label>Credenciais de Acesso</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </anymarket_new_header_access_field>
+
+                        <anymarket_new_host_field translate="label tooltip comment">
+                            <label>Host</label>
+                            <sort_order>1</sort_order>
+                            <comment>URL for access to AnyMarket.</comment>
+                            <tooltip>Contact the Anymarket for this information.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </anymarket_new_host_field>
+
+                        <anymarket_new_oi_field translate="label tooltip comment">
+                            <label>OI</label>
+                            <sort_order>2</sort_order>
+                            <comment>OI necessary to use the Callback.</comment>
+                            <tooltip>Contact the Anymarket for this information.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </anymarket_new_oi_field>
+                    </fields>
+                </anymarket_new_access_group>
+            </groups>
+        </anymarket_new_section>
+    </sections>
+</config>

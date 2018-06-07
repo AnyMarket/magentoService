@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <catalog_product_attribute translate="title" module="catalog">
+                <title>Product attributes API</title>
+                <model>catalog/product_attribute_api</model>
+                <acl>catalog/product</acl>
+                <methods>
+                    <listAll translate="title" module="catalog">
+                        <title>Retrieve list of all attributes</title>
+                        <acl>catalog/product/attribute/read</acl>
+                    </listAll>
+                    <info translate="title" module="catalog">
+                        <title>Retrieve product attribute</title>
+                        <acl>catalog/product/attribute/info</acl>
+                    </info>
+                    <create translate="title" module="catalog">
+                        <title>Create new product attribute</title>
+                        <acl>catalog/product/attribute/create</acl>
+                    </create>
+                    <delete translate="title" module="catalog">
+                        <title>Delete product attribute</title>
+                        <acl>catalog/product/attribute/delete</acl>
+                    </delete>
+                    <addoption translate="title" module="catalog">
+                        <title>Add attribute option</title>
+                        <acl>catalog/product/attribute/addoptions</acl>
+                    </addoption>
+                    <addoptions translate="title" module="catalog">
+                        <title>Add attribute options</title>
+                        <acl>catalog/product/attribute/addoptions</acl>
+                    </addoptions>
+                    <options_all translate="title" module="catalog">
+                    	<title>Retrieve all attribute options</title>
+                    	<method>optionsAll</method>
+                        <acl>catalog/product/attribute/read</acl>
+                    </options_all>
+                    <list_flat translate="title" module="catalog">
+                    	<title>Retrieve attribute sets including child attributes</title>
+                    	<method>listFlat</method>
+                        <acl>catalog/product/attribute/read</acl>
+                    </list_flat>
+                </methods>
+            </catalog_product_attribute>
+            <catalog_product_attribute_media translate="title" module="catalog">
+                <title>Product Images API</title>
+                <model>catalog/product_attribute_media_api</model>
+                <acl>catalog/product/media</acl>
+                <methods>
+                    <md5 translate="title" module="catalog">
+                        <title>Retrieve product image md5sum</title>
+                        <acl>catalog/product/media/md5</acl>
+                    </md5>
+                    <create_from_url translate="title" module="catalog">
+                        <title>Download image from a URL, add it as product image and return image filename</title>
+                        <method>createFromUrl</method>
+                        <acl>catalog/product/media/create</acl>
+                    </create_from_url>
+                </methods>
+            </catalog_product_attribute_media>
+            <catalog_category translate="title" module="catalog">
+                <model>catalog/category_api</model>
+                <title>Category API</title>
+                <acl>catalog/category</acl>
+                <methods>
+                    <currentStore>
+                        <title>Set/Get current store view</title>
+                    </currentStore>
+                    <tree translate="title" module="catalog">
+                        <title>Retrieve hierarchical tree</title>
+                        <acl>catalog/category/tree</acl>
+                    </tree>
+                    <level translate="title" module="catalog">
+                        <title>Retrieve one level of categories by website/store view/parent category</title>
+                    </level>
+                    <info translate="title" module="catalog">
+                        <title>Retrieve category data</title>
+                        <acl>catalog/category/info</acl>
+                    </info>
+                    <create translate="title" module="catalog">
+                        <title>Create new category</title>
+                        <acl>catalog/category/create</acl>
+                    </create>
+                    <update translate="title" module="catalog">
+                        <title>Update category</title>
+                        <acl>catalog/category/update</acl>
+                    </update>
+                    <move translate="title" module="catalog">
+                        <title>Move category in tree</title>
+                        <acl>catalog/category/move</acl>
+                    </move>
+                    <delete translate="title" module="catalog">
+                        <title>Delete category</title>
+                        <acl>catalog/category/delete</acl>
+                    </delete>
+                    <assignedProducts translate="title" module="catalog">
+                        <title>Retrieve list of assigned products</title>
+                        <acl>catalog/category/product</acl>
+                    </assignedProducts>
+                    <assignProduct translate="title" module="catalog">
+                        <title>Assign product to category</title>
+                        <acl>catalog/category/product/assign</acl>
+                    </assignProduct>
+                    <updateProduct translate="title" module="catalog">
+                        <title>Update assigned product</title>
+                        <acl>catalog/category/product/update</acl>
+                    </updateProduct>
+                    <removeProduct translate="title" module="catalog">
+                        <title>Remove product assignment</title>
+                        <acl>catalog/category/product/remove</acl>
+                    </removeProduct>
+                    <flat translate="title" module="catalog">
+                        <title>Retrieve hierarchical tree using flat structure</title>
+                        <acl>catalog/category/tree</acl>
+                    </flat>
+                    <list_paths translate="title" module="catalog">
+                        <title>Return map of categories where the key is category URL path (e.g. "accessories/bb-pouch") and the value is a map of [id, name].</title>
+                        <method>listPaths</method>
+                        <acl>catalog/category/tree</acl>
+                    </list_paths>
+                </methods>
+            </catalog_category>
+            <catalog_product>
+                <methods>
+                    <list_ex translate="title" module="catalog">
+                        <title>Retrieve products list by filters Include Price and Description etc.</title>
+                        <method>itemsEx</method>
+                        <acl>catalog/product/info</acl>
+                    </list_ex>
+                    <list_plus translate="title" module="catalog">
+                        <title>Retrieve products list with basic info plus several more user-defined attributes.</title>
+                        <method>itemsPlus</method>
+                        <acl>catalog/product/info</acl>
+                    </list_plus>
+                    <associate translate="title" module="catalog">
+                        <title>Assign associated products for a configurable product.</title>
+                        <acl>catalog/product/update</acl>
+                    </associate>
+                    <get_refs translate="title" module="catalog">
+                        <title>Retrieve the URL Path, Name, and 50x50 image for a list of products.</title>
+                        <method>getRefs</method>
+                        <acl>catalog/product/info</acl>
+                    </get_refs>
+                    <update_price translate="title" module="catalog">
+                        <title>Update price product</title>
+                        <method>updatePrice</method>
+                        <acl>catalog/product/update</acl>
+                    </update_price>
+                </methods>
+            </catalog_product>
+
+            <cataloginventory_stock_item>
+                <methods>
+                    <list_all translate="title" module="cataloginventory">
+                        <title>Retrieve stock data for all products</title>
+                        <method>itemsAll</method>
+                        <acl>cataloginventory/info</acl>
+                    </list_all>
+                </methods>
+            </cataloginventory_stock_item>
+            
+			<sales_order>
+                <methods>
+                    <create translate="title" module="sales">
+                        <title>Create order</title>
+                        <acl>sales/order/change</acl>
+                    </create>
+                    <create_ex translate="title" module="sales">
+                        <title>Create order with custom addresses</title>
+                        <method>createEx</method>
+                        <acl>sales/order/change</acl>
+                    </create_ex>
+                </methods>
+            </sales_order>
+            
+        </resources>
+    </api>
+</config>

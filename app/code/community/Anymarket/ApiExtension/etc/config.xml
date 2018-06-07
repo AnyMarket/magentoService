@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Anymarket_ApiExtension>
+            <version>3.0.0</version>
+        </Anymarket_ApiExtension>
+    </modules>
+    <global>
+        <models>
+            <apiextension>
+                <class>Anymarket_ApiExtension_Model</class>
+            </apiextension>
+        </models>
+        <helpers>
+            <apiextension>
+                <class>Anymarket_ApiExtension_Helper</class>
+            </apiextension>
+        </helpers>
+    </global>
+</config>
