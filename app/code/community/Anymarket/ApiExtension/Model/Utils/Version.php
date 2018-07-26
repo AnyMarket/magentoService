@@ -5,7 +5,7 @@ class Anymarket_ApiExtension_Model_Utils_Version extends Mage_Catalog_Model_Api_
     
     public function getVersion()
     {
-        return "1.0.2";
+        return "1.0.3";
     }
 
 }

@@ -35,6 +35,17 @@
                     </getVersion>
                 </methods>
             </utils_version>
+            <utils_configuration translate="title" module="apiextension">
+                <model>apiextension/utils_configuration</model>
+                <title>API Extension Utils Configuration</title>
+                <acl>apiextension</acl>
+                <methods>
+                    <updateConfiguration translate="title" module="apiextension">
+                        <title>Update Configuration</title>
+                        <acl>apiextension/configuration_updateConfiguration</acl>
+                    </updateConfiguration>
+                </methods>
+            </utils_configuration>
             <product_attribute_option translate="title" module="apiextension">
                 <model>apiextension/product_attribute_option</model>
                 <title>API Extension Product Attribute Options</title>
