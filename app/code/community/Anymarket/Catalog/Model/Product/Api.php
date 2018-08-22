@@ -34,28 +34,7 @@ class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api
 		Mage::log("Reindexing product stock status");
 		$stockIndexer = Mage::getSingleton('index/indexer')->getProcessByCode('cataloginventory_stock');
 		$stockIndexer->reindexEverything();
-		// DISABLED: Too slow, not worth it 
-// 		$product = Mage::getModel('catalog/product');
-// 		if ($store != null) $product->setStoreId($store);
-// 		$product->load($productId);
-		
-// 		if (!$product->getId()) {
-// 			$this->_fault('not_exists');
-// 		}
-		
-// 		if (!$stockData = $product->getStockData()) {
-// 			$stockData = array();
-// 		}
-// 		$stockData['use_config_manage_stock'] = 1;
-
-// 		$product->setStockData($stockData);
-		
-// 		try {
-// 			$product->save();
-// 		} catch (Mage_Core_Exception $e) {
-// 			$this->_fault('not_updated', $e->getMessage());
-// 		}
-		
+	
 		return $productId;
 	}
 

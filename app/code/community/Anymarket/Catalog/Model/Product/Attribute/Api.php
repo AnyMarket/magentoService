@@ -7,41 +7,7 @@
  * @package    Anymarket_Catalog
  */
 class Anymarket_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Product_Attribute_Api {
-	
-    /**
-     * Create new product attribute
-     *
-     * @param array $data input data
-     * @return integer
-     */
-    public function create($data) {
-    	// if frontend_label is not provided as an array, help the client
-    	if (!empty($data['frontend_label']) && !is_array($data['frontend_label'])) {
-    		$frontend_label = $data['frontend_label']; 
-    		$data['frontend_label'] = array( array('store_id' => 0, 'label' => $frontend_label) );
-    	}
-    	return parent::create($data);
-    }
-	
-	/**
-	 * Create attribute option
-	 *
-	 * @param string $attributeId
-	 * @param string $attributeOption
-	 * @return int
-	 */
-	public function addoption($attributeId, $attributeOption) {
-		$setup = new Mage_Eav_Model_Entity_Setup ( 'core_setup' );
-		
-		$option = array ();
-		$option ['attribute_id'] = $attributeId;
-		$option ['value'] = array( array(0 => $attributeOption) );
-		
-		$setup->addAttributeOption ( $option );
-		
-		return true;
-	}
-	
+
     /**
 	 * Create attribute options
 	 *
@@ -113,7 +79,6 @@ class Anymarket_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_P
 		$attributes->addFieldToFilter('is_configurable', array('eq' => '1'));
 		$attributes->addFieldToFilter('frontend_input', array('eq' => 'select'));
 		foreach ($attributes as $attr) {
-// 			echo "{$attr->getId()} {$attr->getAttributeCode()} {$attr->getIsConfigurable()}\n";
 			if ($attr->usesSource()) {
 				$source = $attr->getSource();
 				foreach ($source->getAllOptions() as $optionOrder => $optionValue) {

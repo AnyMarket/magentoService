@@ -34,58 +34,6 @@
 class Anymarket_Catalog_Model_CatalogInventory_Api extends Mage_CatalogInventory_Model_Stock_Item_Api
 {
 
-	protected function splitByComma($str) {
-		$raw_ids = explode(',', $str);
-		$result = array();
-		foreach ($raw_ids as $id) {
-			$result[] = trim($id);
-		}
-		return $result;
-	}
-
-	public function items($productIds)
-	{
-		if (is_array($productIds) && isset($productIds['product_ids'])) {
-			$productIds = $this->splitByComma($productIds['product_ids']);
-		}
-
-		if (!is_array($productIds)) {
-			if (is_string($productIds)) {
-				$productIds = $this->splitByComma($productIds);
-			} else {
-				$productIds = array($productIds);
-			}
-		}
-
-		$product = Mage::getModel('catalog/product');
-
-		foreach ($productIds as &$productId) {
-			if ($newId = $product->getIdBySku($productId)) {
-				$productId = $newId;
-			}
-		}
-
-		$collection = Mage::getModel('catalog/product')
-		->getCollection()
-		->setFlag('require_stock_items', true)
-		->addFieldToFilter('entity_id', array('in'=>$productIds));
-
-		$result = array();
-
-		foreach ($collection as $product) {
-			if ($product->getStockItem()) {
-				$result[] = array(
-                    'product_id'    => $product->getId(),
-                    'sku'           => $product->getSku(),
-                    'qty'           => $product->getStockItem()->getQty(),
-                    'is_in_stock'   => $product->getStockItem()->getIsInStock()
-				);
-			}
-		}
-
-		return $result;
-	}
-
 	public function itemsAll()
 	{
 		$products = Mage::getModel('catalog/product')->getCollection()
@@ -105,4 +53,4 @@ class Anymarket_Catalog_Model_CatalogInventory_Api extends Mage_CatalogInventory
 		return $result;
 	}
 
-} // Class Mage_CatalogInventory_Model_Stock_Item_Api End
+}
