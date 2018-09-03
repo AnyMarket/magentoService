@@ -1,13 +1,6 @@
 <?php
-/**
- * Anymarket Catalog product api extension
- * This class add the option to add a configurable product
- * reference: http://www.stephenrhoades.com/?p=338
- *
- * @category   Anymarket
- * @package    Anymarket_Catalog
- */
-class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api {
+
+class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Product_Api {
 	
 	/**
 	* Create new product.

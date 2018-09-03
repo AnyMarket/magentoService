@@ -16,5 +16,45 @@
                 <class>Anymarket_ApiExtension_Helper</class>
             </apiextension>
         </helpers>
+        <events>
+            <sales_order_save_commit_after>
+                <observers>
+                    <sales_order_save_commit_after_handler>
+                        <type>singleton</type>
+                        <class>Anymarket_Catalog_Model_Observer</class>
+                        <method>updateOrderAnyMarketObs</method>
+                    </sales_order_save_commit_after_handler>
+                </observers>
+            </sales_order_save_commit_after>
+
+            <sales_order_place_after>
+                <observers>
+                    <sales_order_place_after_handler>
+                        <type>singleton</type>
+                        <class>Anymarket_Catalog_Model_Observer</class>
+                        <method>updateOrderAnyMarketObs</method>
+                    </sales_order_place_after_handler>
+                </observers>
+            </sales_order_place_after>
+
+            <catalog_product_save_after>
+                <observers>
+                    <db1_anymarket>
+                        <class>Anymarket_Catalog_Model_Observer</class>
+                        <method>sendProdAnyMarket</method>
+                    </db1_anymarket>
+                </observers>
+            </catalog_product_save_after>
+
+            <cataloginventory_stock_item_save_commit_after>
+                <observers>
+                    <db1_anymarket>
+                        <class>Anymarket_Catalog_Model_Observer</class>
+                        <method>catalogInventorySave</method>
+                    </db1_anymarket>
+                </observers>
+            </cataloginventory_stock_item_save_commit_after>
+
+        </events>
     </global>
 </config>

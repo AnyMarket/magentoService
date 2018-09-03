@@ -2,6 +2,134 @@
 <config>
     <api>
         <resources>
+            <anymarket_sales_order translate="title" module="apiextension">
+                <model>apiextension/sales_order_api</model>
+                <title>API Extension Sales Order Payment</title>
+                <acl>apiextension</acl>
+                <methods>
+                    <create translate="title" module="sales">
+                        <title>Create order</title>
+                        <method>create</method>
+                    </create>
+                    <create_ex translate="title" module="sales">
+                        <title>Create order with custom addresses</title>
+                        <method>createEx</method>
+                    </create_ex>
+                </methods>
+            </anymarket_sales_order>
+            <anymarket_product translate="title" module="apiextension">
+                <model>apiextension/product_api</model>
+                <title>API Extension Products</title>
+                <acl>apiextension</acl>
+                <methods>
+                    <list_ex translate="title" module="apiextension">
+                        <title>Retrieve products list by filters Include Price and Description etc.</title>
+                        <method>itemsEx</method>
+                    </list_ex>
+                    <list_plus translate="title" module="apiextension">
+                        <title>Retrieve products list with basic info plus several more user-defined attributes.</title>
+                        <method>itemsPlus</method>
+                    </list_plus>
+                    <associate translate="title" module="apiextension">
+                        <title>Assign associated products for a configurable product.</title>
+                    </associate>
+                    <get_refs translate="title" module="apiextension">
+                        <title>Retrieve the URL Path, Name, and 50x50 image for a list of products.</title>
+                        <method>getRefs</method>
+                    </get_refs>
+                    <update_price translate="title" module="apiextension">
+                        <title>Update price product</title>
+                        <method>updatePrice</method>
+                    </update_price>
+                </methods>
+            </anymarket_product>
+            <anymarket_product_attributes translate="title" module="apiextension">
+                <model>apiextension/product_attribute_option</model>
+                <title>API Extension Product Attributes</title>
+                <acl>apiextension</acl>
+                <methods>
+                    <listAll translate="title" module="apiextension">
+                        <title>Retrieve list of all attributes</title>
+                        <acl>catalog/product/attribute/read</acl>
+                    </listAll>
+                    <info translate="title" module="apiextension">
+                        <title>Retrieve product attribute</title>
+                        <acl>catalog/product/attribute/info</acl>
+                    </info>
+                    <delete translate="title" module="apiextension">
+                        <title>Delete product attribute</title>
+                        <acl>catalog/product/attribute/delete</acl>
+                    </delete>
+                    <addoption translate="title" module="apiextension">
+                        <title>Add attribute option</title>
+                        <acl>catalog/product/attribute/addoptions</acl>
+                    </addoption>
+                    <addoptions translate="title" module="apiextension">
+                        <title>Add attribute options</title>
+                        <acl>catalog/product/attribute/addoptions</acl>
+                    </addoptions>
+                    <options_all translate="title" module="apiextension">
+                        <title>Retrieve all attribute options</title>
+                        <method>optionsAll</method>
+                        <acl>catalog/product/attribute/read</acl>
+                    </options_all>
+                    <list_flat translate="title" module="apiextension">
+                        <title>Retrieve attribute sets including child attributes</title>
+                        <method>listFlat</method>
+                        <acl>catalog/product/attribute/read</acl>
+                    </list_flat>
+
+                </methods>
+                <faults module="apiextension">
+                    <not_exist>
+                        <code>100</code>
+                        <message>Invalid attribute ID.</message>
+                    </not_exist>
+                    <data_invalid>
+                        <code>101</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_created>
+                        <code>102</code>
+                        <message>Some or all attribute options not created.</message>
+                    </not_created>
+                </faults>
+            </anymarket_product_attributes>
+            <anymarket_product_attribute_media translate="title" module="apiextension">
+                <title>Product Images API</title>
+                <model>apiextension/product_attribute_media_api</model>
+                <acl>catalog/product/media</acl>
+                <methods>
+                    <md5 translate="title" module="apiextension">
+                        <title>Retrieve product image md5sum</title>
+                        <acl>catalog/product/media/md5</acl>
+                    </md5>
+                    <create_from_url translate="title" module="apiextension">
+                        <title>Download image from a URL, add it as product image and return image filename</title>
+                        <method>createFromUrl</method>
+                        <acl>catalog/product/media/create</acl>
+                    </create_from_url>
+                </methods>
+            </anymarket_product_attribute_media>
+            <anymarket_category translate="title" module="apiextension">
+                <model>apiextension/category_api</model>
+                <title>API Extension Category</title>
+                <acl>apiextension</acl>
+                <methods>
+                    <flat translate="title" module="apiextension">
+                        <title>Retrieve hierarchical tree using flat structure</title>
+                        <acl>catalog/category/tree</acl>
+                    </flat>
+                    <list_paths translate="title" module="apiextension">
+                        <title>Return map of categories where the key is category URL path (e.g. "accessories/bb-pouch")
+                            and the value is a map of [id, name].
+                        </title>
+                        <method>listPaths</method>
+                        <acl>catalog/category/tree</acl>
+                    </list_paths>
+                </methods>
+            </anymarket_category>
+
             <sales_order_shipping translate="title" module="apiextension">
                 <model>apiextension/sales_order_shipping</model>
                 <title>API Extension Sales Order Shipping</title>
@@ -53,7 +181,6 @@
                 <methods>
                     <create translate="title" module="apiextension">
                         <title>Create Item</title>
-                        <acl>apiextension/attribute_option_create</acl>
                     </create>
                 </methods>
                 <faults module="apiextension">
@@ -78,11 +205,9 @@
                 <methods>
                     <setConfigurableAttributes translate="title" module="apiextension">
                         <title>Set Configurable Attributes</title>
-                        <acl>apiextension/product_configurable_write</acl>
                     </setConfigurableAttributes>
                     <associateSimpleChildren>
                         <title>Associate Child Simple Products to Configurable Parent</title>
-                        <acl>apiextension/product_configurable_write</acl>
                     </associateSimpleChildren>
                     <getConfigurableBySimple translate="title" module="apiextension">>
                         <title>getConfigurableBySimple</title>
@@ -117,19 +242,5 @@
                 </faults>
             </catalog_product_configurable>
         </resources>
-        <acl>
-            <resources>
-                <apiextension translate="title" module="apiextension">
-                    <title>Anymarket API Extension</title>
-                    <sort_order>1</sort_order>
-                    <attribute_option_create translate="title" module="apiextension">
-                        <title>Product Attribute Option Create</title>
-                    </attribute_option_create>
-                    <product_configurable_write>
-                        <title>Configurable Product Write Access</title>
-                    </product_configurable_write>
-                </apiextension>
-            </resources>
-        </acl>
     </api>
 </config>
