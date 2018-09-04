@@ -23,19 +23,18 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
 			$productData['websites'] = explode(',', $productData['websites']);
 		}
 
-        Mage::log($productData, null, 'prdFILES.log');
 		$productId = parent::create($type, $set, $sku, $productData, $store);
+        $this->_afterSaveProduct($productId, $productData);
+
 		$stockIndexer = Mage::getSingleton('index/indexer')->getProcessByCode('cataloginventory_stock');
 		$stockIndexer->reindexEverything();
 	
 		return $productId;
 	}
 
-    protected function _prepareDataForSave($product, $productData) {
-        parent::_prepareDataForSave ( $product, $productData );
-
+    protected function _afterSaveProduct($productId, $productData) {
+        $product = Mage::getModel('catalog/product')->load($productId);
         if (isset ( $productData ['configurable_products_data'] ) && is_array ( $productData ['configurable_products_data'] )) {
-            Mage::log('Setting configurable_products_data ' . var_export($productData['configurable_products_data'], true));
             $product->setConfigurableProductsData ( $productData ['configurable_products_data'] );
         }
 
@@ -51,6 +50,7 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
             $product->setConfigurableAttributesData ( $productData ['configurable_attributes_data'] );
             $product->setCanSaveConfigurableAttributes ( 1 );
         }
+        $product->save();
     }
 
 	/**
