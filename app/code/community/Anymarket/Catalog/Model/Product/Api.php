@@ -38,6 +38,42 @@ class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api
 		return $productId;
 	}
 
+    /**
+     * Set additional data before product saved
+     *
+     * @param    Mage_Catalog_Model_Product $product
+     * @param    array $productData
+     * @return	  object
+     */
+    protected function _prepareDataForSave($product, $productData) {
+
+        parent::_prepareDataForSave ( $product, $productData );
+        //Mage::log('Anymarket prepareDataForSave called');
+
+        if (isset ( $productData ['configurable_products_data'] ) && is_array ( $productData ['configurable_products_data'] )) {
+            Mage::log('Setting configurable_products_data ' . var_export($productData['configurable_products_data'], true));
+            $product->setConfigurableProductsData ( $productData ['configurable_products_data'] );
+        }
+
+        /*
+         * Check for configurable products array passed through API Call
+         */
+        if (isset ( $productData ['configurable_attributes_data'] ) && is_string( $productData ['configurable_attributes_data'] )) {
+            $productData ['configurable_attributes_data'] = json_decode($productData ['configurable_attributes_data'], true);
+        }
+        if (isset ( $productData ['configurable_attributes_data'] ) && is_array ( $productData ['configurable_attributes_data'] )) {
+            Mage::log('Setting configurable_attributes_data ' . var_export($productData['configurable_attributes_data'], true));
+            foreach ( $productData ['configurable_attributes_data'] as $key => $data ) {
+                //Check to see if these values exist, otherwise try and populate from existing values
+                $data ['label'] = (! empty ( $data ['label'] )) ? $data ['label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getStoreLabel ();
+                $data ['frontend_label'] = (! empty ( $data ['frontend_label'] )) ? $data ['frontend_label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getFrontendLabel ();
+                $productData ['configurable_attributes_data'] [$key] = $data;
+            }
+            $product->setConfigurableAttributesData ( $productData ['configurable_attributes_data'] );
+            $product->setCanSaveConfigurableAttributes ( 1 );
+        }
+    }
+
 	/**
 	 * Retrieve product info
 	 *
