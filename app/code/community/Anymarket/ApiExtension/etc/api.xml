@@ -22,6 +22,10 @@
                 <title>API Extension Products</title>
                 <acl>apiextension</acl>
                 <methods>
+                    <create translate="title" module="apiextension">
+                        <title>Create new product</title>
+                        <acl>catalog/product/create</acl>
+                    </create>
                     <list_ex translate="title" module="apiextension">
                         <title>Retrieve products list by filters Include Price and Description etc.</title>
                         <method>itemsEx</method>
