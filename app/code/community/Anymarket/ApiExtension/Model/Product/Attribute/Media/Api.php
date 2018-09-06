@@ -6,7 +6,7 @@
  * @category   Anymarket
  * @package    Anymarket_Catalog
  */
-class Anymarket_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_Product_Attribute_Media_Api {
+class Anymarket_ApiExtension_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_Product_Attribute_Media_Api {
 	
 	/**
 	 * Retrieve md5

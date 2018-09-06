@@ -1,12 +1,6 @@
 <?php
-/**
- * Anymarket Catalog Category api extension
- * This class add 'flat' hierarchical category tree
- *
- * @category   Anymarket
- * @package    Anymarket_Catalog
- */
-class Anymarket_Catalog_Model_Category_Api extends Mage_Catalog_Model_Category_Api {
+
+class Anymarket_ApiExtension_Model_Category_Api extends Mage_Catalog_Model_Category_Api {
 	
 	/**
 	* Retrieve hierarchical tree using flat structure
@@ -34,7 +28,6 @@ class Anymarket_Catalog_Model_Category_Api extends Mage_Catalog_Model_Category_A
 		}
 		
 		$collection = Mage::getModel('catalog/category')->getCollection()
-			->setStoreId($storeId)
 			->addAttributeToSelect('name')
 			->addAttributeToSelect('is_active');
 		

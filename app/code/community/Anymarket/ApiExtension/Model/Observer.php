@@ -1,5 +1,5 @@
 <?php
-	class Anymarket_Catalog_Model_Observer {
+	class Anymarket_ApiExtension_Model_Observer {
 
 		private function doCallAnymarket($host){
 	        $curl = curl_init();

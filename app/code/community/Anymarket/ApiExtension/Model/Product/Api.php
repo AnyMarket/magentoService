@@ -1,13 +1,6 @@
 <?php
-/**
- * Anymarket Catalog product api extension
- * This class add the option to add a configurable product
- * reference: http://www.stephenrhoades.com/?p=338
- *
- * @category   Anymarket
- * @package    Anymarket_Catalog
- */
-class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api {
+
+class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Product_Api {
 	
 	/**
 	* Create new product.
@@ -29,42 +22,27 @@ class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api
 		if (is_string($productData['websites'])) {
 			$productData['websites'] = explode(',', $productData['websites']);
 		}
-		
+
 		$productId = parent::create($type, $set, $sku, $productData, $store);
-		Mage::log("Reindexing product stock status");
+        $this->_afterSaveProduct($productId, $productData);
+
 		$stockIndexer = Mage::getSingleton('index/indexer')->getProcessByCode('cataloginventory_stock');
 		$stockIndexer->reindexEverything();
 	
 		return $productId;
 	}
 
-    /**
-     * Set additional data before product saved
-     *
-     * @param    Mage_Catalog_Model_Product $product
-     * @param    array $productData
-     * @return	  object
-     */
-    protected function _prepareDataForSave($product, $productData) {
-
-        parent::_prepareDataForSave ( $product, $productData );
-        //Mage::log('Anymarket prepareDataForSave called');
-
+    protected function _afterSaveProduct($productId, $productData) {
+        $product = Mage::getModel('catalog/product')->load($productId);
         if (isset ( $productData ['configurable_products_data'] ) && is_array ( $productData ['configurable_products_data'] )) {
-            Mage::log('Setting configurable_products_data ' . var_export($productData['configurable_products_data'], true));
             $product->setConfigurableProductsData ( $productData ['configurable_products_data'] );
         }
 
-        /*
-         * Check for configurable products array passed through API Call
-         */
         if (isset ( $productData ['configurable_attributes_data'] ) && is_string( $productData ['configurable_attributes_data'] )) {
             $productData ['configurable_attributes_data'] = json_decode($productData ['configurable_attributes_data'], true);
         }
         if (isset ( $productData ['configurable_attributes_data'] ) && is_array ( $productData ['configurable_attributes_data'] )) {
-            Mage::log('Setting configurable_attributes_data ' . var_export($productData['configurable_attributes_data'], true));
             foreach ( $productData ['configurable_attributes_data'] as $key => $data ) {
-                //Check to see if these values exist, otherwise try and populate from existing values
                 $data ['label'] = (! empty ( $data ['label'] )) ? $data ['label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getStoreLabel ();
                 $data ['frontend_label'] = (! empty ( $data ['frontend_label'] )) ? $data ['frontend_label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getFrontendLabel ();
                 $productData ['configurable_attributes_data'] [$key] = $data;
@@ -72,6 +50,7 @@ class Anymarket_Catalog_Model_Product_Api extends Mage_Catalog_Model_Product_Api
             $product->setConfigurableAttributesData ( $productData ['configurable_attributes_data'] );
             $product->setCanSaveConfigurableAttributes ( 1 );
         }
+        $product->save();
     }
 
 	/**

@@ -1,14 +1,6 @@
 <?php
-/**
- * Anymarket Sales Order API
- *
- * Inspired by {@link Mage_Adminhtml_Model_Sales_Order_Create}.
- * 
- * @category   Sales
- * @package    Anymarket_Catalog
- * @author     Rudi Wijaya <rudi@berbatik.com>
- */
-class Anymarket_Catalog_Model_Sales_Order_Api extends Mage_Sales_Model_Order_Api
+
+class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Order_Api
 {
 
 	/**
