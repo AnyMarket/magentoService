@@ -208,6 +208,15 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setIncrementId($reservedOrderId)
 			->setStoreId($storeId)
 			->setQuoteId(0)
+            ->setBaseShippingTaxAmount(0)
+            ->setBaseTaxAmount(0)
+            ->setBaseToGlobalRate(1)
+            ->setBaseToOrderRate(1)
+            ->setStoreToBaseRate(1)
+            ->setStoreToOrderRate(1)
+            ->setTaxAmount(0)
+            ->setShippingTaxAmount(0)
+            ->setIsVirtual(0)
 			->setGlobalCurrencyCode($currency_code)
 			->setBaseCurrencyCode($currency_code)
 			->setStoreCurrencyCode($currency_code)
@@ -271,6 +280,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 
 		$shippingCost = !empty($data['shipping_amount']) ? $data['shipping_amount'] : 0;
 		$order->setShippingAmount($shippingCost);
+        $order->setBaseShippingAmount($shippingCost);
 		$order->setShippingInclTax($shippingCost);
 		
 		// Set sales order payment method
