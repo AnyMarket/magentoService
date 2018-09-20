@@ -229,7 +229,12 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setCustomerGroupId($customer->getGroupId())
 			->setCustomerIsGuest(0)
 			->setCustomer($customer);
-		
+
+
+        if($customer->getTaxvat() != null && $customer->getTaxvat() != ""){
+            $order->setCustomerTaxvat($customer->getTaxvat());
+        }
+
 		// set Billing Address
 		$billing = $customer->getDefaultBillingAddress();
 		if ($billing == null)
