@@ -225,6 +225,32 @@
                     </unknown>
                 </faults>
             </catalog_product_configurable>
+            <anymarket_feed translate="title" module="apiextension">
+                <model>apiextension/feed_api</model>
+                <title>API Extension Feed</title>
+                <acl>apiextension/feed</acl>
+                <methods>
+                    <list_ex translate="title" module="sales">
+                        <title>Get info from Anymarket Order</title>
+                        <method>list_ex</method>
+                    </list_ex>
+                    <check translate="title" module="sales">
+                        <title>Check item in Feed</title>
+                        <method>check</method>
+                    </check>
+                </methods>
+            </anymarket_feed>
+            <anymarket_order translate="title" module="apiextension">
+                <model>apiextension/order_api</model>
+                <title>API Extension Order</title>
+                <acl>apiextension/order</acl>
+                <methods>
+                    <list_ex translate="title" module="sales">
+                        <title>List All Feed</title>
+                        <method>list_ex</method>
+                    </list_ex>
+                </methods>
+            </anymarket_order>
         </resources>
         <acl>
             <resources>
@@ -234,6 +260,9 @@
                     <info translate="title" module="apiextension">
                         <title>Info</title>
                     </info>
+                    <feed translate="title" module="apiextension">
+                        <title>Feed</title>
+                    </feed>
                     <order translate="title" module="apiextension">
                         <title>Order</title>
                         <shipping translate="title" module="apiextension">

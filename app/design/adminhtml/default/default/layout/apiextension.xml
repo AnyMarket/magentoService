@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <apiextension_adminhtml_anymarketfeed_index>
+	<reference name="content">
+	  <block type="apiextension/adminhtml_anymarketfeed" name="anymarketfeed" />
+	</reference>
+  </apiextension_adminhtml_anymarketfeed_index>
+  <apiextension_adminhtml_anymarketorder_index>
+	<reference name="content">
+	  <block type="apiextension/adminhtml_anymarketorder" name="anymarketorder" />
+	</reference>
+  </apiextension_adminhtml_anymarketorder_index>
+</layout>

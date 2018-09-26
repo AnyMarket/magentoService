@@ -2,6 +2,14 @@
 
 class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Order_Api
 {
+    private function registerOrderAnymarket($idAnymarket, $idMagento, $oi)
+    {
+        $modelFeed = Mage::getModel("apiextension/anymarketorder");
+        $modelFeed->setIdAnymarket($idAnymarket);
+        $modelFeed->setIdMagento($idMagento);
+        $modelFeed->setOi($oi);
+        $modelFeed->save();
+    }
 
 	/**
 	 * Create/insert new sales order.
@@ -17,7 +25,9 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		$transaction = Mage::getModel('core/resource_transaction');
 		$storeId = $customer->getStoreId();
 		$reservedOrderId = Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($storeId);
-		
+
+        $this->registerOrderAnymarket($data['anymarket_id'], $reservedOrderId, $data['oi']);
+
 		//Set order
 		/* @var $order Mage_Sales_Model_Order */
 		$order = Mage::getModel('sales/order');
@@ -199,7 +209,9 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		$transaction = Mage::getModel('core/resource_transaction');
 		$storeId = $customer->getStoreId();
 		$reservedOrderId = Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($storeId);
-		
+
+        $this->registerOrderAnymarket($data['anymarket_id'], $reservedOrderId, $data['oi']);
+
 		//Set order
 		/* @var $order Mage_Sales_Model_Order */
 		$order = Mage::getModel('sales/order');

@@ -3,6 +3,15 @@
 class Anymarket_ApiExtension_Model_Observer
 {
 
+    private function sendToFeed($id, $type, $oi)
+    {
+        $modelFeed = Mage::getModel("apiextension/anymarketfeed");
+        $modelFeed->setIdItem($id);
+        $modelFeed->setType($type);
+        $modelFeed->setOi($oi);
+        $modelFeed->save();
+    }
+
     private function doCallAnymarket($host)
     {
         $curl = curl_init();
@@ -43,11 +52,15 @@ class Anymarket_ApiExtension_Model_Observer
             $order = new Mage_Sales_Model_Order();
             $order->loadByIncrementId($OrderID);
 
-            $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-
-            $host = $host . "/public/api/anymarketcallback/order/" . $oi . "/MAGENTO_1/" . $storeID . "/" . $OrderID;
-            $this->doCallAnymarket($host);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            if ($feed == "1") {
+                $this->sendToFeed($OrderID, "1", $oi);
+            } else {
+                $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
+                $host = $host . "/public/api/anymarketcallback/order/" . $oi . "/MAGENTO_1/" . $storeID . "/" . $OrderID;
+                $this->doCallAnymarket($host);
+            }
         }
     }
 
@@ -64,11 +77,15 @@ class Anymarket_ApiExtension_Model_Observer
 
             $product = Mage::getModel('catalog/product')->setStoreId($storeID)->load($productId);
 
-            $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-
-            $host = $host . "/public/api/anymarketcallback/product/" . $oi . "/MAGENTO_1/" . $storeID . "/" . $product->getSku();
-            $this->doCallAnymarket($host);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            if ($feed == "1") {
+                $this->sendToFeed($product->getSku(), "2", $oi);
+            } else {
+                $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
+                $host = $host . "/public/api/anymarketcallback/product/" . $oi . "/MAGENTO_1/" . $storeID . "/" . $product->getSku();
+                $this->doCallAnymarket($host);
+            }
         }
     }
 
@@ -86,16 +103,26 @@ class Anymarket_ApiExtension_Model_Observer
             $storeID = $_item->getData('store_id');
             $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-            $host = $host . "/public/api/anymarketcallback/stockPrice/" . $oi . "/" . $product->getSku();
 
-            $this->doCallAnymarket($host);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            if ($feed == "1") {
+                $this->sendToFeed($product->getSku(), "0", $oi);
+            } else {
+                $host = $host . "/public/api/anymarketcallback/stockPrice/" . $oi . "/" . $product->getSku();
+                $this->doCallAnymarket($host);
+            }
         } else {
             foreach ($product->getStoreIds() as $storeID) {
                 $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
                 if ($host != null && $host != "") {
                     $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-                    $host = $host . "/public/api/anymarketcallback/stockPrice/" . $oi . "/" . $product->getSku();
-                    $this->doCallAnymarket($host);
+                    $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+                    if ($feed == "1") {
+                        $this->sendToFeed($product->getSku(), "0", $oi);
+                    } else {
+                        $host = $host . "/public/api/anymarketcallback/stockPrice/" . $oi . "/" . $product->getSku();
+                        $this->doCallAnymarket($host);
+                    }
                 }
             }
         }
