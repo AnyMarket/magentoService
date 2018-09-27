@@ -53,7 +53,7 @@ class Anymarket_ApiExtension_Model_Observer
             $order->loadByIncrementId($OrderID);
 
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_order_field', $storeID);
             if ($feed == "1") {
                 $this->sendToFeed($OrderID, "1", $oi);
             } else {
@@ -78,7 +78,7 @@ class Anymarket_ApiExtension_Model_Observer
             $product = Mage::getModel('catalog/product')->setStoreId($storeID)->load($productId);
 
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_product_field', $storeID);
             if ($feed == "1") {
                 $this->sendToFeed($product->getSku(), "2", $oi);
             } else {
@@ -104,7 +104,7 @@ class Anymarket_ApiExtension_Model_Observer
             $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
             $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
 
-            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+            $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_stock_field', $storeID);
             if ($feed == "1") {
                 $this->sendToFeed($product->getSku(), "0", $oi);
             } else {
@@ -116,7 +116,7 @@ class Anymarket_ApiExtension_Model_Observer
                 $host = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_host_field', $storeID);
                 if ($host != null && $host != "") {
                     $oi = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_new_oi_field', $storeID);
-                    $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_field', $storeID);
+                    $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_stock_field', $storeID);
                     if ($feed == "1") {
                         $this->sendToFeed($product->getSku(), "0", $oi);
                     } else {

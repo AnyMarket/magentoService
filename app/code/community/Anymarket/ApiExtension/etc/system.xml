@@ -49,17 +49,41 @@
                             <show_in_store>1</show_in_store>
                         </anymarket_new_header_access_field>
 
-                        <anymarket_using_feed_field translate="label tooltip comment">
-                            <label>Feed</label>
+                        <anymarket_using_feed_stock_field translate="label tooltip comment">
+                            <label>Feed Stock</label>
                             <sort_order>1</sort_order>
-                            <comment>Use Feed.</comment>
+                            <comment>Use Feed for stock and price.</comment>
                             <tooltip>Contact the Anymarket for this information.</tooltip>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </anymarket_using_feed_field>
+                        </anymarket_using_feed_stock_field>
+
+                        <anymarket_using_feed_order_field translate="label tooltip comment">
+                            <label>Feed Order</label>
+                            <sort_order>1</sort_order>
+                            <comment>Use Feed for Orders.</comment>
+                            <tooltip>Contact the Anymarket for this information.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </anymarket_using_feed_order_field>
+
+                        <anymarket_using_feed_product_field translate="label tooltip comment">
+                            <label>Feed Product</label>
+                            <sort_order>1</sort_order>
+                            <comment>Use Feed for Products.</comment>
+                            <tooltip>Contact the Anymarket for this information.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </anymarket_using_feed_product_field>
 
                         <anymarket_new_host_field translate="label tooltip comment">
                             <label>Host</label>
