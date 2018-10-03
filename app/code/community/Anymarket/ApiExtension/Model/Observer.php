@@ -61,17 +61,6 @@ class Anymarket_ApiExtension_Model_Observer
                 $host = $host . "/public/api/anymarketcallback/order/" . $oi . "/MAGENTO_1/" . $storeID . "/" . $OrderID;
                 $this->doCallAnymarket($host);
             }
-            if ($this->isNewOrder($order)) {
-                $feed = Mage::getStoreConfig('anymarket_new_section/anymarket_new_access_group/anymarket_using_feed_stock_field', $storeID);
-                foreach ($order->getAllItems() as $item) {
-                    if ($feed == "1") {
-                        $this->sendToFeed($item->getSku(), "0", $oi);
-                    } else {
-                        $host = $host . "/public/api/anymarketcallback/stockPrice/" . $oi . "/" . $item->getSku();
-                        $this->doCallAnymarket($host);
-                    }
-                }
-            }
 
         }
     }
