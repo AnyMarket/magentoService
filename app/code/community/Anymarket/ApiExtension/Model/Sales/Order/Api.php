@@ -315,9 +315,11 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		//Set products
 		$subTotal = 0;
 		$products = $data["items"];
+        $totDescItems = 0;
 		foreach ($products as $productId=>$product) {
 			$_product = Mage::getModel('catalog/product')->load($product['product_id']);
-			$rowTotal = $product['price'] * $product['qty'];
+			$rowTotal = ($product['price'] * $product['qty']);
+            $totDescItems += (float)$product['discount'];
 			$orderItem = Mage::getModel('sales/order_item')
 				->setStoreId($storeId)
 				->setQuoteItemId(0)
@@ -332,14 +334,21 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 				->setPrice($product['price'])
 				->setBasePrice($product['price'])
 				->setOriginalPrice($_product->getPrice())
+                ->setDiscountAmount($product['discount'])
+                ->setBaseDiscountAmount($product['discount'])
 				->setRowTotal($rowTotal)
 				->setBaseRowTotal($rowTotal);
 		
 			$subTotal += $rowTotal;
 			$order->addItem($orderItem);
 		}
-		
-		$grandTotal = $subTotal + $shippingCost;
+        $totDesc = (float)$totDescItems + $data["discount"];
+        $grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
+        $totDesc = $totDesc * -1;
+
+        $order->setDiscountAmount($totDesc)
+            ->setBaseDiscountAmount($totDesc);
+
 		$order->setSubtotal($subTotal)
 			->setBaseSubtotal($subTotal)
 			->setGrandTotal($grandTotal)
