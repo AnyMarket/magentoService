@@ -237,6 +237,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		// set Customer data
 		$order->setCustomerEmail($customer->getEmail())
 			->setCustomerFirstname($customer->getFirstname())
+			->setCustomerMiddlename($customer->getMiddlename())
 			->setCustomerLastname($customer->getLastname())
 			->setCustomerGroupId($customer->getGroupId())
 			->setCustomerIsGuest(0)
@@ -261,6 +262,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setCustomerId($customer->getId())
 			->setFirstname($newbilling['firstname'])
 			->setLastname($newbilling['lastname'])
+			->setMiddlename($newbilling['middlename'])
 			->setCompany($newbilling['company'])
 			->setStreet($newbilling['street'])
 			->setCity($newbilling['city'])
@@ -282,6 +284,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setCustomerId($customer->getId())
 			->setCustomerId($customer->getId())
 			->setFirstname($shipping['firstname'])
+			->setMiddlename($shipping['middlename'])
 			->setLastname($shipping['lastname'])
 			->setCompany($shipping['company'])
 			->setStreet($shipping['street'])
