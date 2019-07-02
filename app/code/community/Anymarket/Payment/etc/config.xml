@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Anymarket_Payment>
+      <version>0.1.0</version>
+    </Anymarket_Payment>
+  </modules>
+  <global>
+    <models>
+      <anymarket_payment>
+        <class>Anymarket_Payment_Model</class>
+      </anymarket_payment>
+    </models>
+    <helpers>
+      <anymarket_payment>
+        <class>Anymarket_Payment_Helper</class>
+      </anymarket_payment>
+    </helpers>
+  </global>
+  <default>
+    <payment>
+      <anymarket_payment>
+        <model>anymarket_payment/Anymarketpayment</model>
+        <active>1</active>
+        <order_status>pending</order_status>
+        <title>Anymarket Payment</title>
+        <payment_action>sale</payment_action>
+        <sort_order>100</sort_order>
+      </anymarket_payment>
+    </payment>
+  </default>
+</config>

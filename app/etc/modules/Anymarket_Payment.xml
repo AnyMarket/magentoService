@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Anymarket_Payment>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>0.1.0</version>
+    </Anymarket_Payment>
+  </modules>
+</config>
