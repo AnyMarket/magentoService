@@ -220,15 +220,15 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setIncrementId($reservedOrderId)
 			->setStoreId($storeId)
 			->setQuoteId(0)
-            ->setBaseShippingTaxAmount(0)
-            ->setBaseTaxAmount(0)
-            ->setBaseToGlobalRate(1)
-            ->setBaseToOrderRate(1)
-            ->setStoreToBaseRate(1)
-            ->setStoreToOrderRate(1)
-            ->setTaxAmount(0)
-            ->setShippingTaxAmount(0)
-            ->setIsVirtual(0)
+      ->setBaseShippingTaxAmount(0)
+      ->setBaseTaxAmount(0)
+      ->setBaseToGlobalRate(1)
+      ->setBaseToOrderRate(1)
+      ->setStoreToBaseRate(1)
+      ->setStoreToOrderRate(1)
+      ->setTaxAmount(0)
+      ->setShippingTaxAmount(0)
+      ->setIsVirtual(0)
 			->setGlobalCurrencyCode($currency_code)
 			->setBaseCurrencyCode($currency_code)
 			->setStoreCurrencyCode($currency_code)
@@ -300,7 +300,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 
 		$shippingCost = !empty($data['shipping_amount']) ? $data['shipping_amount'] : 0;
 		$order->setShippingAmount($shippingCost);
-        $order->setBaseShippingAmount($shippingCost);
+    $order->setBaseShippingAmount($shippingCost);
 		$order->setShippingInclTax($shippingCost);
 		
 		// Set sales order payment method
@@ -318,11 +318,11 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		//Set products
 		$subTotal = 0;
 		$products = $data["items"];
-        $totDescItems = 0;
+    $totDescItems = 0;
 		foreach ($products as $productId=>$product) {
 			$_product = Mage::getModel('catalog/product')->load($product['product_id']);
 			$rowTotal = ($product['price'] * $product['qty']);
-            $totDescItems += (float)$product['discount'];
+      $totDescItems += (float)$product['discount'];
 			$orderItem = Mage::getModel('sales/order_item')
 				->setStoreId($storeId)
 				->setQuoteItemId(0)
@@ -337,20 +337,20 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 				->setPrice($product['price'])
 				->setBasePrice($product['price'])
 				->setOriginalPrice($_product->getPrice())
-                ->setDiscountAmount($product['discount'])
-                ->setBaseDiscountAmount($product['discount'])
+        ->setDiscountAmount($product['discount'])
+        ->setBaseDiscountAmount($product['discount'])
 				->setRowTotal($rowTotal)
 				->setBaseRowTotal($rowTotal);
 		
 			$subTotal += $rowTotal;
 			$order->addItem($orderItem);
 		}
-        $totDesc = (float)$totDescItems + $data["discount"];
-        $grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
-        $totDesc = $totDesc * -1;
+    $totDesc = (float)$totDescItems + $data["discount"];
+    $grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
+    $totDesc = $totDesc * -1;
 
-        $order->setDiscountAmount($totDesc)
-            ->setBaseDiscountAmount($totDesc);
+    $order->setDiscountAmount($totDesc)
+      ->setBaseDiscountAmount($totDesc);
 
 		$order->setSubtotal($subTotal)
 			->setBaseSubtotal($subTotal)
@@ -361,8 +361,7 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		$transaction->addCommitCallback(array($order, 'place'));
 		$transaction->addCommitCallback(array($order, 'save'));
 		$transaction->save();
-		
-		// TODO: send New Order Email should be customizable
+
 		$order->sendNewOrderEmail();
 
 		// Quote will be picked up by Mage_CatalogInventory_Model::subtractQuoteInventory()

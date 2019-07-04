@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Anymarket_Shipping>
+      <version>1.0</version>
+    </Anymarket_Shipping>
+  </modules>
+  <global>
+    <models>
+      <anymarket_shipping>
+        <class>Anymarket_Shipping_Model</class>
+      </anymarket_shipping>
+    </models>
+    <helpers>
+      <anymarket_shipping>
+        <class>Anymarket_Shipping_Helper</class>
+      </anymarket_shipping>
+    </helpers>
+  </global>
+  <default>
+    <carriers>
+      <anymarket_shipping>
+        <model>anymarket_shipping/Anymarketshipping</model>
+        <active>1</active>
+        <sallowspecific>0</sallowspecific>
+        <name>Anymarket Shipping</name>
+        <price>0</price>
+        <title>anymarket_shipping</title>
+      </anymarket_shipping>
+    </carriers>
+  </default>
+</config>
