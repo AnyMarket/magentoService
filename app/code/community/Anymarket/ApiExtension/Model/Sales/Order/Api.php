@@ -221,12 +221,12 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			->setStoreId($storeId)
 			->setQuoteId(0)
       ->setBaseShippingTaxAmount(0)
-      ->setBaseTaxAmount(0)
+      ->setBaseTaxAmount($data['tax_amount'])
       ->setBaseToGlobalRate(1)
       ->setBaseToOrderRate(1)
       ->setStoreToBaseRate(1)
       ->setStoreToOrderRate(1)
-      ->setTaxAmount(0)
+      ->setTaxAmount($data['tax_amount'])
       ->setShippingTaxAmount(0)
       ->setIsVirtual(0)
 			->setGlobalCurrencyCode($currency_code)
@@ -346,7 +346,8 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			$order->addItem($orderItem);
 		}
     $totDesc = (float)$totDescItems + $data["discount"];
-    $grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
+	$grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
+	$grandTotal = $grandTotal+(float)$data["tax_amount"];
     $totDesc = $totDesc * -1;
 
     $order->setDiscountAmount($totDesc)
