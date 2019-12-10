@@ -346,8 +346,8 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 			$order->addItem($orderItem);
 		}
     $totDesc = (float)$totDescItems + $data["discount"];
-	$grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
-	$grandTotal = $grandTotal+(float)$data["tax_amount"];
+	  $grandTotal = ((float)$subTotal+(float)$shippingCost)-(float)$totDesc;
+	  $grandTotal = $grandTotal+(float)$data["tax_amount"];
     $totDesc = $totDesc * -1;
 
     $order->setDiscountAmount($totDesc)
@@ -390,10 +390,6 @@ class Anymarket_ApiExtension_Model_Sales_Order_Api extends Mage_Sales_Model_Orde
 		}
 		// This eventually decreases the stock on Manage Stock=Yes products, observed by Mage_CatalogInventory
 		Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
-		// do index for cataloginventory_stock
-		$stockIndexer = Mage::getSingleton('index/indexer')->getProcessByCode('cataloginventory_stock');
-		$stockIndexer->reindexEverything();
-
 		$orderId = $order->getIncrementId();
 		return $orderId;
 	}

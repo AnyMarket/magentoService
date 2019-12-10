@@ -24,34 +24,31 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
 		}
 
 		$productId = parent::create($type, $set, $sku, $productData, $store);
-        $this->_afterSaveProduct($productId, $productData);
+    $this->_afterSaveProduct($productId, $productData);
 
-		$stockIndexer = Mage::getSingleton('index/indexer')->getProcessByCode('cataloginventory_stock');
-		$stockIndexer->reindexEverything();
-	
 		return $productId;
 	}
 
-    protected function _afterSaveProduct($productId, $productData) {
-        $product = Mage::getModel('catalog/product')->load($productId);
-        if (isset ( $productData ['configurable_products_data'] ) && is_array ( $productData ['configurable_products_data'] )) {
-            $product->setConfigurableProductsData ( $productData ['configurable_products_data'] );
-        }
-
-        if (isset ( $productData ['configurable_attributes_data'] ) && is_string( $productData ['configurable_attributes_data'] )) {
-            $productData ['configurable_attributes_data'] = json_decode($productData ['configurable_attributes_data'], true);
-        }
-        if (isset ( $productData ['configurable_attributes_data'] ) && is_array ( $productData ['configurable_attributes_data'] )) {
-            foreach ( $productData ['configurable_attributes_data'] as $key => $data ) {
-                $data ['label'] = (! empty ( $data ['label'] )) ? $data ['label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getStoreLabel ();
-                $data ['frontend_label'] = (! empty ( $data ['frontend_label'] )) ? $data ['frontend_label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getFrontendLabel ();
-                $productData ['configurable_attributes_data'] [$key] = $data;
-            }
-            $product->setConfigurableAttributesData ( $productData ['configurable_attributes_data'] );
-            $product->setCanSaveConfigurableAttributes ( 1 );
-        }
-        $product->save();
+  protected function _afterSaveProduct($productId, $productData) {
+    $product = Mage::getModel('catalog/product')->load($productId);
+    if (isset ( $productData ['configurable_products_data'] ) && is_array ( $productData ['configurable_products_data'] )) {
+      $product->setConfigurableProductsData ( $productData ['configurable_products_data'] );
     }
+
+    if (isset ( $productData ['configurable_attributes_data'] ) && is_string( $productData ['configurable_attributes_data'] )) {
+      $productData ['configurable_attributes_data'] = json_decode($productData ['configurable_attributes_data'], true);
+    }
+    if (isset ( $productData ['configurable_attributes_data'] ) && is_array ( $productData ['configurable_attributes_data'] )) {
+      foreach ( $productData ['configurable_attributes_data'] as $key => $data ) {
+        $data ['label'] = (! empty ( $data ['label'] )) ? $data ['label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getStoreLabel ();
+        $data ['frontend_label'] = (! empty ( $data ['frontend_label'] )) ? $data ['frontend_label'] : $product->getResource ()->getAttribute ( $data ['attribute_code'] )->getFrontendLabel ();
+        $productData ['configurable_attributes_data'] [$key] = $data;
+      }
+      $product->setConfigurableAttributesData ( $productData ['configurable_attributes_data'] );
+      $product->setCanSaveConfigurableAttributes ( 1 );
+    }
+    $product->save();
+  }
 
 	/**
 	 * Retrieve product info
@@ -62,7 +59,6 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
 	 * @return array
 	 */
 	public function info($productId, $store = null, $attributes = null, $identifierType = null) {
-		
 		$result = parent::info ( $productId, $store, $attributes, $identifierType );
 		
 		if ($result ['type'] == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
@@ -88,12 +84,11 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
 	public function itemsEx($filters = null, $store = null)
 	{
 		$collection = Mage::getModel('catalog/product')->getCollection()
-		->addStoreFilter($this->_getStoreId($store))
-		->addAttributeToSelect('name')
-		->addAttributeToSelect('price')
-		->addAttributeToSelect('description');
-		
-	
+		  ->addStoreFilter($this->_getStoreId($store))
+		  ->addAttributeToSelect('name')
+	  	->addAttributeToSelect('price')
+  		->addAttributeToSelect('description');
+
 		if (is_array($filters)) {
 			try {
 				foreach ($filters as $field => $value) {
@@ -109,23 +104,22 @@ class Anymarket_ApiExtension_Model_Product_Api extends Mage_Catalog_Model_Produc
 		}
 	
 		$result = array();
-	
-		foreach ($collection as $product) {
+			foreach ($collection as $product) {
 			//            $result[] = $product->getData();
 			$categoryIds = $product->getCategoryIds();
 			
 				
 			$result[] = array( // Basic product data
-	                'product_id' => $product->getId(),
-	                'sku'        => $product->getSku(),
-	                'name'       => $product->getName(),
-	                'set'        => $product->getAttributeSetId(),
-	                'type'       => $product->getTypeId(),
+          'product_id' => $product->getId(),
+          'sku'        => $product->getSku(),
+          'name'       => $product->getName(),
+          'set'        => $product->getAttributeSetId(),
+          'type'       => $product->getTypeId(),
 					'price'      => $product->getPrice(),
 					'cost'       => $product->getCost(),
 					'description'      => $product->getDescription(),
-					'category_ids'       => $categoryIds,
-					'category_id'       => !empty($categoryIds) ? $categoryIds[0] : null
+					'category_ids'     => $categoryIds,
+					'category_id'      => !empty($categoryIds) ? $categoryIds[0] : null
 			);
 		}
 		
